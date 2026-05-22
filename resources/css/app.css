@@ -1,1 +1,29 @@
-@import 'bootstrap/dist/css/bootstrap.css';
+:root {
+    --primary-color: #831d19;
+    --accent-color: #e6935f;
+    --text-color: #1f2937;
+    --font-family: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
