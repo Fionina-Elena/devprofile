@@ -17,13 +17,12 @@ class ContactFormController extends Controller
         $chatId = env('TELEGRAM_CHAT_ID');
 
         // Формируем красивое сообщение
-        $text = 'Новая заявка с портфолио! '."\n\n"
-            .'Имя: '.$validated['name']."\n"
-            .'Телефон: '.($validated['phone'] ?? 'Не указан')."\n"
-            .'Email: '.$validated['email']."\n"
-            .'Сообщение: '.$validated['message'];
+        $text = 'Новая заявка с портфолио! ' . "\n\n"
+            . 'Имя: ' . $validated['name'] . "\n"
+            . 'Телефон: ' . ($validated['phone'] ?? 'Не указан') . "\n"
+            . 'Email: ' . $validated['email'] . "\n"
+            . 'Сообщение: ' . $validated['message'];
 
-        // Отправляем в Телеграм
         $response = Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
             'chat_id' => $chatId,
             'text' => $text,
