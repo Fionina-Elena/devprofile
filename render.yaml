@@ -14,19 +14,5 @@ services:
         value: https://devprofile-portfolio.onrender.com
       - key: ASSET_URL
         value: https://devprofile-portfolio.onrender.com
-      - key: MAIL_MAILER
-        value: smtp
-      - key: MAIL_HOST
-        value: "77.88.21.38"
-      - key: MAIL_PORT
-        value: "465"
-      - key: MAIL_ENCRYPTION
-        value: ssl
-      - key: MAIL_USERNAME
-        value: filatowa.l2010@yandex.ru
-      - key: MAIL_PASSWORD
-        value: ndgoyvpzktsluffe
-      - key: MAIL_FROM_ADDRESS
-        value: filatowa.l2010@yandex.ru
-      - key: MAIL_FROM_NAME
-        value: "Елена Фионина"
+      - key: UNISENDER_API_KEY
+        value: "6izu9kgb3mm9gt3e8483yqi74abnri337d539p4e"

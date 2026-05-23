@@ -63,10 +63,6 @@ RUN chown -R www-data:www-data /var/www/html \
 # Копирование .env.example в .env
 RUN cp .env.example .env
 
-# Изменить MAIL_* настройки через sed
-RUN sed -i 's/MAIL_PORT=587/MAIL_PORT=465/' .env
-RUN sed -i 's/MAIL_ENCRYPTION=tls/MAIL_ENCRYPTION=ssl/' .env
-
 # Генерация ключа
 RUN php artisan key:generate
 
