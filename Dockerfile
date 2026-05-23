@@ -1,7 +1,7 @@
-FROM php:8.1-fpm
+FROM php:8.1-fpm-alpine
 
 # Установка системных зависимостей
-RUN apt-get update && apt-get install -y \
+RUN apk add --no-cache \
     git \
     curl \
     libpng-dev \
@@ -10,17 +10,32 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     libzip-dev \
-    && rm -rf /var/lib/apt/lists/*
+    autoconf \
+    g++ \
+    make \
+    icu-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev
+
+# Настройка компиляции
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 
 # Установка PHP расширений (БЕЗ pdo_mysql - база данных не нужна)
-RUN docker-php-ext-install mbstring exif pcntl bcmath gd zip
+RUN docker-php-ext-install \
+    mbstring \
+    exif \
+    pcntl \
+    bcmath \
+    gd \
+    zip \
+    intl
 
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Установка Node.js и npm
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+RUN apk add --no-cache nodejs npm
 
 # Настройка рабочей директории
 WORKDIR /var/www/html
@@ -28,9 +43,9 @@ WORKDIR /var/www/html
 # Копирование файлов проекта
 COPY . .
 
-# Установка PHP зависимостей с ограничением памяти и без скриптов
+# Установка PHP зависимостей с ограничением памяти
 ENV COMPOSER_MEMORY_LIMIT=-1
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --prefer-dist
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --prefer-dist --ignore-platform-reqs
 
 # Установка Node.js зависимостей и сборка фронтенда
 RUN npm install && npm run build
