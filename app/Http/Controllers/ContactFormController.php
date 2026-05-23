@@ -10,52 +10,28 @@ class ContactFormController extends Controller
     public function store(ContactFormRequest $request)
     {
         $validated = $request->validated();
-        $apiKey = env('UNISENDER_API_KEY'); // Ключ 6i3p7...
 
-        $senderEmail = 'filatowa.l2010@yandex.ru';
-        $senderName = 'Елена Фионина';
+        // Получаем настройки из переменных окружения
+        $token = env('TELEGRAM_BOT_TOKEN');
+        $chatId = env('TELEGRAM_CHAT_ID');
 
-        $htmlOwner = view('emails.owner', ['data' => $validated])->render();
-        $htmlUser = view('emails.user', ['data' => $validated])->render();
+        // Формируем красивое сообщение
+        $text = "🔔 <b>Новая заявка с портфолио!</b>\n\n"
+            . "👤 <b>Имя:</b> " . $validated['name'] . "\n"
+            . "📞 <b>Телефон:</b> " . ($validated['phone'] ?? 'Не указан') . "\n"
+            . "📧 <b>Email:</b> " . $validated['email'] . "\n"
+            . "💬 <b>Сообщение:</b>\n" . $validated['message'];
 
-        // Используем V5 API (стандартный адрес)
-        $responseOwner = Http::withHeaders([
-            'X-API-KEY' => $apiKey,
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        ])->post('https://api.unisender.com/ru/v5/transactional/email/send', [
-            "message" => [
-                "recipients" => [["email" => $senderEmail]],
-                "subject" => 'Новое сообщение "devprofile"',
-                "from_email" => $senderEmail,
-                "from_name" => $senderName,
-                "body" => [
-                    "html" => $htmlOwner
-                ]
-            ]
+        // Отправляем в Телеграм
+        Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
+            'chat_id' => $chatId,
+            'text' => $text,
+            'parse_mode' => 'HTML' // Чтобы работал жирный шрифт
         ]);
 
-        // 2. Отправка КЛИЕНТУ
-        $responseClient = Http::withHeaders([
-            'X-API-KEY' => $apiKey,
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        ])->post('https://api.unisender.com/ru/v5/transactional/email/send', [
-            "message" => [
-                "recipients" => [["email" => $validated['email']]],
-                "subject" => 'Спасибо за обращение',
-                "from_email" => $senderEmail,
-                "from_name" => $senderName,
-                "body" => [
-                    "html" => $htmlUser
-                ]
-            ]
-        ]);
-
+        // Отвечаем фронтенду, что всё ок
         return response()->json([
-            'message' => 'success',
-            'debug_owner' => $responseOwner->body(),
-            'debug_client' => $responseClient->body()
+            'message' => 'success'
         ], 200);
     }
 }

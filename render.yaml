@@ -14,5 +14,10 @@ services:
         value: https://devprofile-portfolio.onrender.com
       - key: ASSET_URL
         value: https://devprofile-portfolio.onrender.com
-      - key: UNISENDER_API_KEY
-        value: "6i3p75hpiruzfih74ftzeytuwbe7xp4ma6eykspy"
+      
+      # --- НАСТРОЙКИ ТЕЛЕГРАМ ---
+      - key: TELEGRAM_BOT_TOKEN
+        value: "8819406686:AAHyZDmQ26-2b5Iw7ut2zvgbhDjLoQwsUvQ"
+      - key: TELEGRAM_CHAT_ID
+        value: "6194756750"
+      # -----------------------------
