@@ -12,8 +12,9 @@ class ContactFormController extends Controller
     {
         $validated = $request->validated();
 
-        $token = env('TELEGRAM_BOT_TOKEN');
-        $chatId = env('TELEGRAM_CHAT_ID');
+        // Используем переменные окружения напрямую (обход Laravel env())
+        $token = $_ENV['TELEGRAM_BOT_TOKEN'] ?? $_SERVER['TELEGRAM_BOT_TOKEN'] ?? null;
+        $chatId = $_ENV['TELEGRAM_CHAT_ID'] ?? $_SERVER['TELEGRAM_CHAT_ID'] ?? null;
 
         Log::info('ContactForm request started', [
             'token_exists' => ! empty($token),
