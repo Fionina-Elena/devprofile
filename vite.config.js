@@ -8,7 +8,6 @@ export default defineConfig({
         port: 5173,
         cors: true
     },
-    base: './',
     plugins: [
         vue(),
         laravel({
@@ -19,5 +18,11 @@ export default defineConfig({
     build: {
         outDir: 'public/build',
         assetsDir: 'assets',
+        manifest: true,
+        rollupOptions: {
+            output: {
+                manualChunks: undefined,
+            },
+        },
     },
 });

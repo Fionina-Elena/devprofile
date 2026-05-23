@@ -12,6 +12,8 @@ services:
         value: "true"
       - key: APP_URL
         value: https://devprofile-portfolio.onrender.com
+      - key: ASSET_URL
+        value: https://devprofile-portfolio.onrender.com
       - key: MAIL_MAILER
         value: smtp
       - key: MAIL_HOST
