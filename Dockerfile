@@ -60,11 +60,14 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chmod -R 777 /var/www/html/bootstrap/cache
 
-# Копирование .env.example в .env (закрыто для использования переменных Render)
-# RUN cp .env.example .env
+# Копирование .env.example в .env для локальной работы с artisan командами
+RUN cp .env.example .env
 
 # Генерация ключа
 RUN php artisan key:generate
+
+# Очистка кэша конфигурации для использования переменных окружения Render
+RUN php artisan config:clear
 
 # Создание symbolic link для storage
 RUN php artisan storage:link
