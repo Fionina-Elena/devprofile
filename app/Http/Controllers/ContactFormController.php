@@ -15,41 +15,33 @@ class ContactFormController extends Controller
         $senderEmail = 'filatowa.l2010@yandex.ru';
         $senderName = 'Елена Фионина';
 
-        // 1. Отправка ВАМ (Владельцу)
-        $responseOwner = Http::withHeaders([
-            'X-API-KEY' => $apiKey,
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        ])->post('https://go.unisender.com/ru/transactional/api/v1/email/send.json', [
-            "message" => [
-                "recipients" => [["email" => $senderEmail]],
-                "subject" => 'Новое сообщение "devprofile"',
-                "from_email" => $senderEmail,
-                "from_name" => $senderName,
-                "body" => [
-                    "html" => view('emails.owner', ['data' => $validated])->render()
-                ]
-            ]
+        //  HTML
+        $htmlOwner = view('emails.owner', ['data' => $validated])->render();
+        $htmlUser = view('emails.user', ['data' => $validated])->render();
+
+        // 1. Отправка мне
+        $responseOwner = Http::asForm()->post('https://api.unisender.com/ru/api/sendEmail', [
+            'api_key' => $apiKey,
+            'email' => $senderEmail,
+            'sender_name' => $senderName,
+            'sender_email' => $senderEmail,
+            'subject' => 'Новое сообщение "devprofile"',
+            'body' => $htmlOwner,
+            'list_id' => 1 // Используем ID списка, который был у вас на скриншоте
         ]);
 
         // 2. Отправка КЛИЕНТУ
-        $responseClient = Http::withHeaders([
-            'X-API-KEY' => $apiKey,
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        ])->post('https://go.unisender.com/ru/transactional/api/v1/email/send.json', [
-            "message" => [
-                "recipients" => [["email" => $validated['email']]],
-                "subject" => 'Спасибо за обращение',
-                "from_email" => $senderEmail,
-                "from_name" => $senderName,
-                "body" => [
-                    "html" => view('emails.user', ['data' => $validated])->render()
-                ]
-            ]
+        $responseClient = Http::asForm()->post('https://api.unisender.com/ru/api/sendEmail', [
+            'api_key' => $apiKey,
+            'email' => $validated['email'],
+            'sender_name' => $senderName,
+            'sender_email' => $senderEmail,
+            'subject' => 'Спасибо за обращение',
+            'body' => $htmlUser,
+            'list_id' => 1
         ]);
 
-        // Возвращаем ответ ВМЕСТЕ с отладочной информацией от Unisender
+        // Возвращаем ответ для отладки
         return response()->json([
             'message' => 'success',
             'debug_owner' => $responseOwner->body(),
