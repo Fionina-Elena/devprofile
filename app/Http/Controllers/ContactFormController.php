@@ -12,28 +12,28 @@ class ContactFormController extends Controller
     {
         $validated = $request->validated();
 
-        // Прямые значения для Telegram API
-        $token = '8819406686:AAHyZDmQ26-2b5Iw7ut2zvgbhDjLoQwsUvQ';
-        $chatId = '6194756750';
+        // Используем config файл с fallback для безопасности
+        $token = config('telegram.bot_token');
+        $chatId = config('telegram.chat_id');
 
         Log::info('ContactForm request started', [
             'token_exists' => ! empty($token),
-            'token_preview' => substr($token, 0, 10).'...',
+            'token_preview' => substr($token, 0, 10) . '...',
             'chatId' => $chatId,
             'validated_data' => $validated,
         ]);
 
         $text = "Новая заявка с портфолио! \n\n";
-        $text .= 'Имя: '.$validated['name']."\n";
-        $text .= 'Телефон: '.($validated['phone'] ?? 'Не указан')."\n";
-        $text .= 'Email: '.$validated['email']."\n";
-        $text .= 'Сообщение: '.$validated['message'];
+        $text .= 'Имя: ' . $validated['name'] . "\n";
+        $text .= 'Телефон: ' . ($validated['phone'] ?? 'Не указан') . "\n";
+        $text .= 'Email: ' . $validated['email'] . "\n";
+        $text .= 'Сообщение: ' . $validated['message'];
 
         $url = "https://api.telegram.org/bot{$token}/sendMessage";
 
         Log::info('Sending to Telegram', [
-            'url' => substr($url, 0, 60).'...',
-            'text_preview' => substr($text, 0, 50).'...',
+            'url' => substr($url, 0, 60) . '...',
+            'text_preview' => substr($text, 0, 50) . '...',
         ]);
 
         $response = Http::post($url, [

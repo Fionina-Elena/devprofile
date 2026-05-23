@@ -60,14 +60,8 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chmod -R 777 /var/www/html/bootstrap/cache
 
-# Копирование .env.example в .env для генерации ключа
-RUN cp .env.example .env
-
-# Генерация ключа
-RUN php artisan key:generate
-
-# Сохранить только APP_KEY, удалить остальные переменные для использования Render переменных
-RUN sed -i '/^APP_KEY=/!d' .env
+# Создать минимальный .env только с APP_KEY для использования переменных Render
+RUN echo "APP_KEY=$(php artisan key:generate --show)" > .env
 
 # Очистка кэша конфигурации
 RUN php artisan config:clear
