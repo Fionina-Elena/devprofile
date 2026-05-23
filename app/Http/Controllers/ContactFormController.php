@@ -12,13 +12,13 @@ class ContactFormController extends Controller
     {
         $validated = $request->validated();
 
-        // Используем переменные окружения напрямую (обход Laravel env())
-        $token = $_ENV['TELEGRAM_BOT_TOKEN'] ?? $_SERVER['TELEGRAM_BOT_TOKEN'] ?? null;
-        $chatId = $_ENV['TELEGRAM_CHAT_ID'] ?? $_SERVER['TELEGRAM_CHAT_ID'] ?? null;
+        // Прямые значения для Telegram API
+        $token = '8819406686:AAHyZDmQ26-2b5Iw7ut2zvgbhDjLoQwsUvQ';
+        $chatId = '6194756750';
 
         Log::info('ContactForm request started', [
             'token_exists' => ! empty($token),
-            'token_preview' => $token ? substr($token, 0, 10).'...' : 'null',
+            'token_preview' => substr($token, 0, 10).'...',
             'chatId' => $chatId,
             'validated_data' => $validated,
         ]);
@@ -32,7 +32,7 @@ class ContactFormController extends Controller
         $url = "https://api.telegram.org/bot{$token}/sendMessage";
 
         Log::info('Sending to Telegram', [
-            'url' => $token ? substr($url, 0, 50).'...' : 'URL cannot be built (missing token)',
+            'url' => substr($url, 0, 60).'...',
             'text_preview' => substr($text, 0, 50).'...',
         ]);
 
