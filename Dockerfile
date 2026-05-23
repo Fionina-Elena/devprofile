@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Установка PHP расширений
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+# Установка PHP расширений (БЕЗ pdo_mysql - база данных не нужна)
+RUN docker-php-ext-install mbstring exif pcntl bcmath gd zip
 
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -28,8 +28,9 @@ WORKDIR /var/www/html
 # Копирование файлов проекта
 COPY . .
 
-# Установка PHP зависимостей
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Установка PHP зависимостей с ограничением памяти и без скриптов
+ENV COMPOSER_MEMORY_LIMIT=-1
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --prefer-dist
 
 # Установка Node.js зависимостей и сборка фронтенда
 RUN npm install && npm run build
