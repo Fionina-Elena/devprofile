@@ -25,7 +25,7 @@ services:
       - key: MAIL_USERNAME
         value: filatowa.l2010@yandex.ru
       - key: MAIL_PASSWORD
-        sync: false
+        value: ndgoyvpzktsluffe
       - key: MAIL_FROM_ADDRESS
         value: filatowa.l2010@yandex.ru
       - key: MAIL_FROM_NAME
