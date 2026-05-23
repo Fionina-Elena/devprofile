@@ -2,7 +2,7 @@
     <div v-if="isOpen" class="modal" @click="closeOutside">
         <div class="modal__content" @click.stop>
             <button class="modal__close" @click="close">×</button>
-            <h2>Форма связи</h2>
+            <h2>Отправить сообщение</h2>
 
             <form @submit.prevent="handleSubmit" class="contact-form">
                 <div class="form-group">
@@ -100,7 +100,7 @@ export default {
             vue.successMessage = '';
             axios.post('/api/contact', vue.form)
                 .then(function (response) {
-                    vue.successMessage = 'Сообщение отправлено!';
+                    vue.successMessage = 'Спасибо! Я свяжусь с вами в ближайшее время.';
                     vue.form = {
                         name: '',
                         phone: '',

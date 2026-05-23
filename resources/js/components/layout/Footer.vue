@@ -67,12 +67,13 @@ export default {
 
 .footer__button {
     margin-left: auto;
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 2rem;
     background: var(--accent-color);
     color: white;
     border-radius: 0.5rem;
     font-weight: 600;
     transition: background 0.3s;
+    font-size: 1.1rem;
 }
 
 .footer__button:hover {

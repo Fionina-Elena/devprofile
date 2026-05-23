@@ -12,16 +12,8 @@ class ContactFormController extends Controller
     {
         $validated = $request->validated();
 
-        // Используем config файл с fallback для безопасности
         $token = config('telegram.bot_token');
         $chatId = config('telegram.chat_id');
-
-        Log::info('ContactForm request started', [
-            'token_exists' => ! empty($token),
-            'token_preview' => substr($token, 0, 10) . '...',
-            'chatId' => $chatId,
-            'validated_data' => $validated,
-        ]);
 
         $text = "Новая заявка с портфолио! \n\n";
         $text .= 'Имя: ' . $validated['name'] . "\n";
@@ -29,32 +21,23 @@ class ContactFormController extends Controller
         $text .= 'Email: ' . $validated['email'] . "\n";
         $text .= 'Сообщение: ' . $validated['message'];
 
-        $url = "https://api.telegram.org/bot{$token}/sendMessage";
-
-        Log::info('Sending to Telegram', [
-            'url' => substr($url, 0, 60) . '...',
-            'text_preview' => substr($text, 0, 50) . '...',
-        ]);
-
-        $response = Http::post($url, [
+        $response = Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
             'chat_id' => $chatId,
             'text' => $text,
         ]);
 
         if ($response->successful()) {
-            Log::info('Message sent successfully', ['chat_id' => $chatId]);
-
-            return response()->json(['message' => 'success'], 200);
+            return response()->json([
+                'message' => 'success'
+            ], 200);
         } else {
-            Log::error('Telegram API failed', [
+            Log::error('Telegram API error', [
                 'status' => $response->status(),
                 'body' => $response->body(),
-                'full_url' => $token ? $url : 'URL cannot be built (missing token)',
             ]);
 
             return response()->json([
                 'message' => 'Ошибка отправки',
-                'debug' => $response->body(),
             ], 500);
         }
     }

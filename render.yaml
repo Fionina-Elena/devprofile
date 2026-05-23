@@ -14,14 +14,10 @@ services:
         value: https://devprofile-portfolio.onrender.com
       - key: ASSET_URL
         value: https://devprofile-portfolio.onrender.com
-      
-      # --- НАСТРОЙКИ ТЕЛЕГРАМ ---
       - key: TELEGRAM_BOT_TOKEN
         value: "8819406686:AAHyZDmQ26-2b5Iw7ut2zvgbhDjLoQwsUvQ"
       - key: TELEGRAM_CHAT_ID
         value: "6194756750"
-      # -----------------------------
-      # --- ЛОГИРОВАНИЕ ДЛЯ RENDER ---
       - key: LOG_CHANNEL
         value: "stdout"
-      # -----------------------------
+     
