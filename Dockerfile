@@ -60,12 +60,15 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chmod -R 777 /var/www/html/bootstrap/cache
 
-# Копирование .env.example в .env и генерация ключа
-RUN cp .env.example .env && php artisan key:generate
+# Копирование .env.example в .env
+RUN cp .env.example .env
 
-# Перезаписать MAIL_* настройки для production через artisan
-RUN php artisan env:set MAIL_PORT=465
-RUN php artisan env:set MAIL_ENCRYPTION=ssl
+# Изменить MAIL_* настройки через sed
+RUN sed -i 's/MAIL_PORT=587/MAIL_PORT=465/' .env
+RUN sed -i 's/MAIL_ENCRYPTION=tls/MAIL_ENCRYPTION=ssl/' .env
+
+# Генерация ключа
+RUN php artisan key:generate
 
 # Создание symbolic link для storage
 RUN php artisan storage:link
