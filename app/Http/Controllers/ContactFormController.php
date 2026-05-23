@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactFormRequest;
-// Убираем use Mail и Mailables, они больше не нужны
-use Illuminate\Support\Facades\Http; // Добавляем HTTP клиент
+use Illuminate\Support\Facades\Http;
 
 class ContactFormController extends Controller
 {
@@ -16,7 +15,7 @@ class ContactFormController extends Controller
         $senderEmail = 'filatowa.l2010@yandex.ru';
         $senderName = 'Елена Фионина';
 
-        // 1. Отправка ВАМ
+        // 1. Отправка ВАМ (Владельцу)
         $responseOwner = Http::withHeaders([
             'X-API-KEY' => $apiKey,
             'Content-Type' => 'application/json',
@@ -32,9 +31,6 @@ class ContactFormController extends Controller
                 ]
             ]
         ]);
-
-        // ЗАПИСЫВАЕМ ОТВЕТ В ЛОГ
-        \Log::info('Unisender Response Owner: ' . $responseOwner->body());
 
         // 2. Отправка КЛИЕНТУ
         $responseClient = Http::withHeaders([
@@ -53,10 +49,11 @@ class ContactFormController extends Controller
             ]
         ]);
 
-        \Log::info('Unisender Response Client: ' . $responseClient->body());
-
+        // Возвращаем ответ ВМЕСТЕ с отладочной информацией от Unisender
         return response()->json([
-            'message' => 'success'
+            'message' => 'success',
+            'debug_owner' => $responseOwner->body(),
+            'debug_client' => $responseClient->body()
         ], 200);
     }
 }
