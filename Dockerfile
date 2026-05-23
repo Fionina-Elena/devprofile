@@ -66,8 +66,8 @@ RUN cp .env.example .env
 # Генерация ключа
 RUN php artisan key:generate
 
-# УДАЛЯЕМ .env - используем переменные окружения Render
-RUN rm .env
+# Сохранить только APP_KEY, удалить остальные переменные для использования Render переменных
+RUN sed -i '/^APP_KEY=/!d' .env
 
 # Очистка кэша конфигурации
 RUN php artisan config:clear
