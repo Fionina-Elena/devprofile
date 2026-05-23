@@ -49,7 +49,7 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-script
 
 # Установка Node.js зависимостей (оптимизировано для памяти)
 ENV NODE_OPTIONS=--max-old-space-size=2048
-RUN npm install --production --silent --no-audit --no-fund
+RUN npm install --no-audit --no-fund
 
 # Сборка фронтенда
 RUN npm run build
