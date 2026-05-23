@@ -17,7 +17,7 @@ services:
       - key: MAIL_MAILER
         value: smtp
       - key: MAIL_HOST
-        value: smtp.yandex.ru
+        value: "77.88.21.38"
       - key: MAIL_PORT
         value: "465"
       - key: MAIL_ENCRYPTION
