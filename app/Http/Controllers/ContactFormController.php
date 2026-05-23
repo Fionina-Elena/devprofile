@@ -12,6 +12,7 @@ class ContactFormController extends Controller
         $validated = $request->validated();
         $apiKey = env('UNISENDER_API_KEY');
 
+        // Данные отправителя (должны совпадать с подтвержденными)
         $senderEmail = 'filatowa.l2010@yandex.ru';
         $senderName = 'Елена Фионина';
 
@@ -19,7 +20,7 @@ class ContactFormController extends Controller
         $htmlOwner = view('emails.owner', ['data' => $validated])->render();
         $htmlUser = view('emails.user', ['data' => $validated])->render();
 
-        // 1. Отправка мне (По документации: метод sendEmail)
+        // Используем метод sendEmail согласно документации
         $responseOwner = Http::asForm()->post('https://api.unisender.com/ru/api/sendEmail', [
             'api_key' => $apiKey,
             'email' => $senderEmail,
@@ -27,8 +28,9 @@ class ContactFormController extends Controller
             'sender_email' => $senderEmail,
             'subject' => 'Новое сообщение "devprofile"',
             'body' => $htmlOwner,
-            'list_id' => 1,
-            'format' => 'json' // Просим ответ в JSON
+            'list_id' => 1, //  список ID
+            'format' => 'json',
+            'error_checking' => 1 // Рекомендация из документации
         ]);
 
         // 2. Отправка КЛИЕНТУ
@@ -40,8 +42,13 @@ class ContactFormController extends Controller
             'subject' => 'Спасибо за обращение',
             'body' => $htmlUser,
             'list_id' => 1,
-            'format' => 'json'
+            'format' => 'json',
+            'error_checking' => 1
         ]);
+
+        // Логируем ответы для отладки
+        \Log::info('Unisender Owner: ' . $responseOwner->body());
+        \Log::info('Unisender Client: ' . $responseClient->body());
 
         return response()->json([
             'message' => 'success',
