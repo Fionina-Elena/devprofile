@@ -73,10 +73,10 @@ RUN php artisan key:generate
 # Создание symbolic link для storage
 RUN php artisan storage:link
 
-# Кэширование конфигурации для продакшена (после ENV переменных)
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
+# Кэширование конфигурации отключено - используем переменные окружения Render
+# RUN php artisan config:cache
+# RUN php artisan route:cache
+# RUN php artisan view:cache
 
 # Запуск 
 CMD php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
