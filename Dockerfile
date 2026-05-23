@@ -63,10 +63,9 @@ RUN chown -R www-data:www-data /var/www/html \
 # Копирование .env.example в .env и генерация ключа
 RUN cp .env.example .env && php artisan key:generate
 
-# Перезаписать MAIL_* настройки для production (гарантирует правильные SMTP)
-ENV MAIL_HOST=smtp.yandex.ru
-ENV MAIL_PORT=587
-ENV MAIL_ENCRYPTION=tls
+# Перезаписать MAIL_* настройки для production через artisan
+RUN php artisan env:set MAIL_PORT=465
+RUN php artisan env:set MAIL_ENCRYPTION=ssl
 
 # Создание symbolic link для storage
 RUN php artisan storage:link
