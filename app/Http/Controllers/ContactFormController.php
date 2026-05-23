@@ -18,13 +18,13 @@ class ContactFormController extends Controller
         $htmlOwner = view('emails.owner', ['data' => $validated])->render();
         $htmlUser = view('emails.user', ['data' => $validated])->render();
 
-        // --- КОД ДЛЯ UNISENDER GO ---
         // 1. Отправка 
+        // ИЗМЕНЕННАЯ ССЫЛКА 
         $responseOwner = Http::withHeaders([
             'X-API-KEY' => $apiKey,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
-        ])->post('https://go.unisender.com/ru/transactional/api/v1/email/send', [
+        ])->post('https://go.unisender.com/api/ru/transactional/v1/email/send.json', [
             "message" => [
                 "recipients" => [["email" => $senderEmail]],
                 "subject" => 'Новое сообщение "devprofile"',
@@ -37,11 +37,12 @@ class ContactFormController extends Controller
         ]);
 
         // 2. Отправка КЛИЕНТУ
+        // ИЗМЕНЕННАЯ ССЫЛКА
         $responseClient = Http::withHeaders([
             'X-API-KEY' => $apiKey,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
-        ])->post('https://go.unisender.com/ru/transactional/api/v1/email/send', [
+        ])->post('https://go.unisender.com/api/ru/transactional/v1/email/send.json', [
             "message" => [
                 "recipients" => [["email" => $validated['email']]],
                 "subject" => 'Спасибо за обращение',
