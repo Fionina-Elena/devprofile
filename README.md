@@ -1,66 +1,291 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Developer Portfolio - Elena Fionina
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Лендинг-презентация Fullstack разработчика с формой обратной связи.
 
-## About Laravel
+## Демо
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[Ссылка на деплой] (будет добавлена после деплоя)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Стек технологий
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Frontend
+- **Vue.js 3** — реактивный фреймворк
+- **Vue Router** — навигация между страницами
+- **JavaScript (ES6+)** — логика приложения
+- **CSS** — стилизация с CSS переменными
+- **Vite** — сборщик фронтенда
+- **Axios** — HTTP клиент для API запросов
+- **vue-the-mask** — маска для телефонного номера
 
-## Learning Laravel
+### Backend
+- **Laravel 10** — PHP фреймворк
+- **PHP 8.1+** — язык программирования
+- **MySQL** — база данных
+- **Laravel Mail** — отправка писем
+- **REST API** — архитектура API
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Как запустить проект
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Требования
+- PHP >= 8.1
+- Composer
+- Node.js & npm
+- MySQL
+- Git
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Установка
 
-## Laravel Sponsors
+1. **Клонировать репозиторий**
+```bash
+git clone https://github.com/Fionina-Elena/devprofile.git
+cd devprofile
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Установка зависимостей PHP**
+```bash
+composer install
+```
 
-### Premium Partners
+3. **Настройка окружения**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Отредактируйте `.env` файл:
+```env
+APP_NAME="Developer Portfolio"
+APP_ENV=local
+APP_KEY=ваш_ключ_генерируется_автоматически
+APP_DEBUG=true
+APP_URL=http://localhost:8000
 
-## Contributing
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=devprofile
+DB_USERNAME=ваш_username_mysql
+DB_PASSWORD=ваш_password_mysql
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.yandex.ru
+MAIL_PORT=587
+MAIL_USERNAME=filatowa.l2010@yandex.ru
+MAIL_PASSWORD=ваш_пароль_от_почты
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="filatowa.l2010@yandex.ru"
+MAIL_FROM_NAME="${APP_NAME}"
+```
 
-## Code of Conduct
+4. **Миграции базы данных**
+```bash
+php artisan migrate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. **Установка зависимостей фронтенда**
+```bash
+npm install
+```
 
-## Security Vulnerabilities
+6. **Запуск фронтенда (Vite)**
+```bash
+npm run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7. **Запуск сервера Laravel**
+```bash
+php artisan serve
+```
 
-## License
+8. **Открыть в браузере**
+```
+http://localhost:8000
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Структура проекта
+
+```
+devprofile/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   └── ContactFormController.php  # Контроллер формы
+│   │   └── Requests/
+│   │       └── ContactFormRequest.php     # Валидация формы
+│   └── Mail/
+│       ├── ContactFormOwner.php           # Письмо владельцу
+│       └── ContactFormUser.php            # Письмо пользователю
+├── public/
+│   └── images/                            # Статические изображения
+├── resources/
+│   └── js/
+│       └── components/
+│           ├── about/                     # Компоненты "Обо мне"
+│           │   ├── Hero.vue              # Фото и описание
+│           │   ├── TechStack.vue         # Стек технологий
+│           │   ├── Skills.vue            # Навыки
+│           │   └── SkillColumn.vue       # Колонка навыков
+│           ├── contact/                   # Компоненты контактов
+│           │   └── ContactModal.vue      # Модальное окно формы
+│           ├── layout/                    # Компоненты верстки
+│           │   ├── Header.vue            # Шапка
+│           │   └── Footer.vue            # Подвал
+│           ├── navigation/                # Навигационные страницы
+│           │   ├── About.vue             # Обо мне
+│           │   ├── HowIWork.vue          # Как я работаю
+│           │   └── Cases.vue             # Кейсы
+│           └── App.vue                    # Корневой компонент
+├── routes/
+│   └── api.php                            # API маршруты
+└── composer.json
+```
+
+## Как реализована форма обратной связи
+
+### Frontend (Vue.js)
+- **Модальное окно** (ContactModal.vue)
+- **Поля формы**:
+  - Имя (обязательно)
+  - Телефон (необязательно, с маской `+7 (###) ###-##-##`)
+  - Email (обязательно)
+  - Комментарий (обязательно)
+- **Валидация на фронтенде** (HTML required атрибуты)
+- **Отправка через Axios** на `POST /api/contact`
+- **Состояния**: success, error, loading
+
+### Backend (Laravel)
+- **API endpoint**: `POST /api/contact`
+- **Валидация на бэкенде** (ContactFormRequest.php)
+- **Контроллер** (ContactFormController.php):
+  - Валидирует данные
+  - Отправляет письмо владельцу сайта
+  - Отправляет копию письма пользователю
+  - Возвращает JSON response
+
+### Email отправка
+- **Письмо владельцу** (ContactFormOwner.php)
+  - Отправляется на `filatowa.l2010@yandex.ru`
+  - Содержит все данные из формы
+
+- **Письмо пользователю** (ContactFormUser.php)
+  - Отправляется на email из формы
+  - Содержит подтверждение получения
+
+### Обработка ошибок
+- **Frontend**: отображение ошибок валидации под полями
+- **Backend**: возврат ошибок валидации в JSON формате
+- **Global error**: общее сообщение об ошибке отправки
+
+## Как работают с API
+
+Frontend общается с backend через REST API:
+
+### Endpoint
+```
+POST /api/contact
+Content-Type: application/json
+
+{
+  "name": "Елена Фионина",
+  "phone": "+7 (917) 604-57-16",
+  "email": "filatowa.l2010@yandex.ru",
+  "message": "Тестовое сообщение"
+}
+```
+
+### Response (успешный)
+```json
+{
+  "message": "success"
+}
+```
+
+### Response (ошибка валидации)
+```json
+{
+  "errors": {
+    "name": ["Поле name обязательно."],
+    "email": ["Поле email должно быть валидным."]
+  }
+}
+```
+
+## AI-инструменты
+
+**Важно:** AI-интеграция пока не реализована в рамках тестового задания. Планируется добавить после деплоя.
+
+### Как я использую AI в работе (описано в портфолио)
+Простой код пишу сама — это быстрее, чем объяснять задание. AI включаю там, где он реально экономит время:
+
+- **Сложная логика и архитектура** — обсуждаю подходы, оцениваю варианты
+- **Незнакомая технология** — изучаю документацию вместе с AI
+- **Рутина** — генерирую однотипный код
+- **Дебаг** — AI помогает посмотреть на проблему иначе
+- **Рефакторинг** — проверяю код на чистоту
+
+## Что делалось с помощью ИИ (в процессе разработки)
+
+В процессе создания этого портфолио ИИ использовался для:
+
+1. **Советы по структуре проекта** — обсуждение организации компонентов
+2. **Помощь в создание формы отправки email письма** - Mail классы
+3. **Поиск ошибок в CSS** — отладка стилей
+4. **Рефакторинг кода** — оптимизация Vue компонентов
+5. **Написание этого README** — генерация структуры
+6. **Адаптивность** — настройка для мобильных устройств
+
+## Что пришлось исправлять вручную
+
+1. **Дизайн и стилизация** — все визуальные элементы  дорабатывались вручную
+2. **Логика компонентов Vue.js** — дорабатывались вручную
+3. **Backend логика** — контроллеры, Request классы
+4. **Интеграция формы** — связка frontend и backend
+5. **Тестирование** — проверка всех сценариев использования
+6. **Фиксы багов** — исправление найденных проблем
+
+## Кейсы / Опыт
+
+В портфолио представлено 5 проектов:
+
+1. **Планировщик путешествий** — SPA с Яндекс.Картами, OAuth, публикацией поездок
+2. **Сервис по починке телефонов** — CRUD система с JWT и CRON
+3. **Опрос с вариантами ответов** — одностраничное приложение с Vuex и Vue Router
+4. **Личный менеджер задач** — CRUD операции с кешированием
+5. **Веб-приложение для управления каталогом туров** — в разработке 
+
+Каждый кейс содержит:
+- Описание проекта
+- Список технологий
+- Что я делала лично
+- Ссылка на GitHub
+- Скриншоты (карусель)
+
+## Особенности реализации
+
+### Адаптивность
+- Мобильная версия (max-width: 768px)
+- Планшетная версия (max-width: 1200px)
+- Desktop версия
+
+### Оптимизация
+- Vite для быстрой сборки фронтенда
+- Кеширование в Laravel
+- Оптимизированные изображения
+
+### Безопасность
+- Валидация на фронтенде и бэкенде
+- CSRF защита (Laravel)
+- Валидация email формата
+- Защита от XSS
+
+## Лицензия
+
+MIT
+
+## Контакты
+
+- Телефон: +7 917 604-57-16
+- Email: filatowa.l2010@yandex.ru
+- Telegram: @fionina_elena98
+- GitHub: https://github.com/Fionina-Elena
+

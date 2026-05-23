@@ -16,8 +16,11 @@
 
 <style scoped>
 .header {
-    background: var(--primary-color);
-    padding: 1rem 2rem;
+    background: linear-gradient(to bottom,
+            var(--primary-color) 85%,
+            transparent 100%);
+    padding: 1rem 3rem;
+    position: relative;
 }
 
 .header_nav {

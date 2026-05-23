@@ -10,21 +10,36 @@
 import SkillColumn from './SkillColumn.vue';
 
 const hardSkills = [
+    'PHP / Laravel',
+    'Vue.js / Vue Router',
     'JavaScript',
+    'HTML / CSS',
+    'MySQL / PostgreSQL',
+    'CRUD, миграции БД',
+    'REST API / JSON API',
+    'JWT Auth / OAuth',
+    'Docker',
+    'GitHub / GitLab',
+    'Linux',
+    'Яндекс.Карты API / Яндекс.Cloud',
+    'Feature-тестирование'
 ]
 
 const softSkills = [
     'Работа в команде',
     'Code Review',
-    'Анализ кода',
-    'Быстрое обучение'
+    'Готовность к командировкам',
+    'Самостоятельная разработка от идеи до продакшена',
+    'Стремление учиться и расти как специалист'
 ]
 
 const personalQualities = [
     'Аккуратность',
     'Ответственность',
-    'Упорство',
-    'Люблю учиться'
+    'Усидчивость',
+    'Коммуникабельность',
+    'Пунктуальность',
+    'Инициативность',
 ]
 </script>
 

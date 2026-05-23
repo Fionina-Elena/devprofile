@@ -5,8 +5,14 @@
         </div>
         <div class="hero__content">
             <h1 class="hero__title">Fullstack Developer</h1>
-            <p class="hero__description">27 лет, активно ищу работу и хочу развиваться</p>
-            <p class="hero__experience"> <b>Опыт:</b> 1 год 6 месяцев</p>
+            <p class="hero__description">Фионина Елена</p>
+            <p class="hero__description">12 июня 1998</p>
+            <p class="hero__description">Ульяновск, Россия</p>
+            <p class="hero__experience"> <b>Опыт в разработке:</b> 1 год 6 месяцев</p>
+        </div>
+        <div class="hero__about">
+            <p class="hero__about-text">ищу команду, где смогу приносить пользу, перенимать опыт у старших коллег и
+                расти как специалист.</p>
         </div>
     </section>
 </template>
@@ -44,12 +50,28 @@ const photoUrl = '/images/photo.jpg';
 }
 
 .hero__description {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #6b7280;
 }
 
 .hero__experience {
     font-size: 1.2rem;
-    color: #887467;
+    color: #7b6759;
+}
+
+.hero__about {
+    flex: 1;
+    max-width: 360px;
+    margin-top: 76px;
+}
+
+.hero__about-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #4b5563;
+    font-style: italic;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 2rem;
+    font-family: 'Times New Roman', Times, serif;
 }
 </style>

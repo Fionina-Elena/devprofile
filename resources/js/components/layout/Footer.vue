@@ -1,12 +1,22 @@
 <template>
     <footer class="footer">
         <div class="footer__content">
-            <div class="footer__contacts">
-                <p class="footer__contact">+7 917 604-57-16</p>
-                <p class="footer__contact">filatowa.l2010@yandex.ru</p>
+            <div class="footer__col">
+                <p class="footer__contact"><i class="fa-solid fa-phone" style="color: rgb(192, 198, 205);"></i>
+                    +7 917 604-57-16</p>
+                <p class="footer__mail"><i class="fa-solid fa-envelope" style="color: rgb(192, 198, 205);"></i>
+                    filatowa.l2010@yandex.ru</p>
+            </div>
+            <div class="footer__col">
+                <p class="footer__mail"><i class="fa-solid fa-paper-plane" style="color: rgb(192, 198, 205);"></i>
+                    @fionina_elena98</p>
+                <a href="https://github.com/Fionina-Elena" class="footer__mail footer__link" target="_blank">
+                    <i class="fa-brands fa-github" style="color: rgb(192, 198, 205);"></i>
+                    https://github.com/Fionina-Elena
+                </a>
             </div>
             <button class="footer__button" @click="openModal">
-                Связаться
+                Связаться <i class="fa-solid fa-reply-all fa-lg" style="color: rgb(255, 255, 255);"></i>
             </button>
         </div>
         <ContactModal ref="modalRef" />
@@ -38,15 +48,17 @@ export default {
 
 .footer__content {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 3rem;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.footer__contacts {
+.footer__col {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .footer__contact {
@@ -54,6 +66,7 @@ export default {
 }
 
 .footer__button {
+    margin-left: auto;
     padding: 0.75rem 1.5rem;
     background: var(--accent-color);
     color: white;
@@ -64,5 +77,16 @@ export default {
 
 .footer__button:hover {
     background: #ea580c;
+}
+
+.footer__link {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.footer__link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
 }
 </style>
