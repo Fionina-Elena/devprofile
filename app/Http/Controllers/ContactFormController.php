@@ -15,33 +15,45 @@ class ContactFormController extends Controller
         $token = env('TELEGRAM_BOT_TOKEN');
         $chatId = env('TELEGRAM_CHAT_ID');
 
-        // Собираем текст (просто строки)
-        $text = "Новая заявка с портфолио! \n\n";
-        $text .= "Имя: " . $validated['name'] . "\n";
-        $text .= "Телефон: " . ($validated['phone'] ?? 'Не указан') . "\n";
-        $text .= "Email: " . $validated['email'] . "\n";
-        $text .= "Сообщение: " . $validated['message'];
+        Log::info('ContactForm request started', [
+            'token_exists' => ! empty($token),
+            'token_preview' => $token ? substr($token, 0, 10).'...' : 'null',
+            'chatId' => $chatId,
+            'validated_data' => $validated,
+        ]);
 
-        // Отправляем (БЕЗ parse_mode)
-        $response = Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
+        $text = "Новая заявка с портфолио! \n\n";
+        $text .= 'Имя: '.$validated['name']."\n";
+        $text .= 'Телефон: '.($validated['phone'] ?? 'Не указан')."\n";
+        $text .= 'Email: '.$validated['email']."\n";
+        $text .= 'Сообщение: '.$validated['message'];
+
+        $url = "https://api.telegram.org/bot{$token}/sendMessage";
+
+        Log::info('Sending to Telegram', [
+            'url' => $token ? substr($url, 0, 50).'...' : 'URL cannot be built (missing token)',
+            'text_preview' => substr($text, 0, 50).'...',
+        ]);
+
+        $response = Http::post($url, [
             'chat_id' => $chatId,
-            'text' => $text
-            // 'parse_mode' => 'HTML'  
+            'text' => $text,
         ]);
 
         if ($response->successful()) {
-            Log::info('Успешная отправка в Telegram');
+            Log::info('Message sent successfully', ['chat_id' => $chatId]);
 
             return response()->json(['message' => 'success'], 200);
         } else {
-            // Если ошибка все еще будет, логируем её
-            Log::error('Ошибка Telegram (Plain Text)', [
-                'body' => $response->body()
+            Log::error('Telegram API failed', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'full_url' => $token ? $url : 'URL cannot be built (missing token)',
             ]);
 
             return response()->json([
                 'message' => 'Ошибка отправки',
-                'debug' => $response->body()
+                'debug' => $response->body(),
             ], 500);
         }
     }
