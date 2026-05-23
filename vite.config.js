@@ -3,11 +3,6 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    server: {
-        host: "localhost",
-        port: 5173,
-        cors: true
-    },
     plugins: [
         vue(),
         laravel({
@@ -15,14 +10,4 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    build: {
-        outDir: 'public/build',
-        assetsDir: 'assets',
-        manifest: true,
-        rollupOptions: {
-            output: {
-                manualChunks: undefined,
-            },
-        },
-    },
 });

@@ -43,12 +43,16 @@ WORKDIR /var/www/html
 # Копирование файлов проекта
 COPY . .
 
-# Установка PHP зависимостей с ограничением памяти
+# Установка PHP зависимостей с оптимизацией памяти
 ENV COMPOSER_MEMORY_LIMIT=-1
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --prefer-dist --ignore-platform-reqs
 
-# Установка Node.js зависимостей и сборка фронтенда
-RUN npm install && npm run build
+# Установка Node.js зависимостей (оптимизировано для памяти)
+ENV NODE_OPTIONS=--max-old-space-size=2048
+RUN npm install --production --silent --no-audit --no-fund
+
+# Сборка фронтенда
+RUN npm run build
 
 # Настройка прав доступа
 RUN chown -R www-data:www-data /var/www/html \
