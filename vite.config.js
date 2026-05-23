@@ -8,6 +8,7 @@ export default defineConfig({
         port: 5173,
         cors: true
     },
+    base: './',
     plugins: [
         vue(),
         laravel({
@@ -15,4 +16,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        outDir: 'public/build',
+        assetsDir: 'assets',
+    },
 });
