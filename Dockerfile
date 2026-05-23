@@ -67,5 +67,5 @@ RUN php artisan config:cache
 RUN php artisan route:cache
 RUN php artisan view:cache
 
-# Запуск PHP-FPM
-CMD ["php-fpm"]
+# Запуск 
+CMD php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
