@@ -16,17 +16,17 @@ class ContactFormController extends Controller
         $chatId = env('TELEGRAM_CHAT_ID');
 
         // Формируем красивое сообщение
-        $text = "🔔 <b>Новая заявка с портфолио!</b>\n\n"
-            . "👤 <b>Имя:</b> " . $validated['name'] . "\n"
-            . "📞 <b>Телефон:</b> " . ($validated['phone'] ?? 'Не указан') . "\n"
-            . "📧 <b>Email:</b> " . $validated['email'] . "\n"
-            . "💬 <b>Сообщение:</b>\n" . $validated['message'];
+        $text = "Новая заявка с портфолио! " . "\n\n"
+            . "Имя: " . $validated['name'] . "\n"
+            . "Телефон: " . ($validated['phone'] ?? 'Не указан') . "\n"
+            . "Email: " . $validated['email'] . "\n"
+            . "Сообщение: " . $validated['message'];
 
         // Отправляем в Телеграм
         Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
             'chat_id' => $chatId,
             'text' => $text,
-            'parse_mode' => 'HTML' // Чтобы работал жирный шрифт
+            //'parse_mode' => 'HTML' // Чтобы работал жирный шрифт
         ]);
 
         // Отвечаем фронтенду, что всё ок
