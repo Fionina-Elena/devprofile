@@ -21,7 +21,7 @@ services:
       - key: MAIL_PORT
         value: "465"
       - key: MAIL_ENCRYPTION
-        value: "ssl"
+        value: ssl
       - key: MAIL_USERNAME
         value: filatowa.l2010@yandex.ru
       - key: MAIL_PASSWORD
