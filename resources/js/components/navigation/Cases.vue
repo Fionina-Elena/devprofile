@@ -152,12 +152,11 @@ export default {
                     title: 'Веб-приложение для управления каталогом туров с публичной частью и админ-панелью.',
                     description: 'Приложение в разработке.',
                     whatIDid: [
-                        '/images/cases/travel-hub/travelhub-2.png',
-                        '/images/cases/travel-hub/travelhub-1.png',
                     ],
                     technologies: ['Laravel', 'Vue.js', 'REST API', 'Validation'],
                     images: [
-
+                        '/images/cases/travel-hub/travelhub-2.png',
+                        '/images/cases/travel-hub/travelhub-1.png',
                     ],
                     githubLink: '#',
                     currentImageIndex: 0
