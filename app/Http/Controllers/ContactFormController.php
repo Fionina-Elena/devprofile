@@ -12,35 +12,36 @@ class ContactFormController extends Controller
     {
         $validated = $request->validated();
 
-        // Получаем настройки из переменных окружения
         $token = env('TELEGRAM_BOT_TOKEN');
         $chatId = env('TELEGRAM_CHAT_ID');
 
-        // Формируем красивое сообщение
-        $text = 'Новая заявка с портфолио! ' . "\n\n"
-            . 'Имя: ' . $validated['name'] . "\n"
-            . 'Телефон: ' . ($validated['phone'] ?? 'Не указан') . "\n"
-            . 'Email: ' . $validated['email'] . "\n"
-            . 'Сообщение: ' . $validated['message'];
+        // Собираем текст (просто строки)
+        $text = "Новая заявка с портфолио! \n\n";
+        $text .= "Имя: " . $validated['name'] . "\n";
+        $text .= "Телефон: " . ($validated['phone'] ?? 'Не указан') . "\n";
+        $text .= "Email: " . $validated['email'] . "\n";
+        $text .= "Сообщение: " . $validated['message'];
 
+        // Отправляем (БЕЗ parse_mode)
         $response = Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
             'chat_id' => $chatId,
-            'text' => $text,
-            'parse_mode' => 'HTML',
+            'text' => $text
+            // 'parse_mode' => 'HTML'  
         ]);
 
         if ($response->successful()) {
-            Log::info('Сообщение отправлено в Telegram', ['chat_id' => $chatId]);
+            Log::info('Успешная отправка в Telegram');
 
             return response()->json(['message' => 'success'], 200);
         } else {
-            Log::error('Ошибка Telegram API', [
-                'status' => $response->status(),
-                'body' => $response->body(),
+            // Если ошибка все еще будет, логируем её
+            Log::error('Ошибка Telegram (Plain Text)', [
+                'body' => $response->body()
             ]);
 
             return response()->json([
-                'message' => 'Ошибка отправки сообщения',
+                'message' => 'Ошибка отправки',
+                'debug' => $response->body()
             ], 500);
         }
     }
