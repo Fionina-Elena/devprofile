@@ -5,7 +5,7 @@
                 <p class="footer__contact">+7 917 604-57-16</p>
                 <p class="footer__contact">filatowa.l2010@yandex.ru</p>
             </div>
-            <button class="footer__button" @click="modalRef?.open()">
+            <button class="footer__button" @click="openModal">
                 Связаться
             </button>
         </div>
@@ -13,11 +13,20 @@
     </footer>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script>
 import ContactModal from '../contact/ContactModal.vue';
 
-const modalRef = ref(null);
+export default {
+    components: {
+        ContactModal
+    },
+
+    methods: {
+        openModal() {
+            this.$refs.modalRef.open();
+        }
+    }
+};
 </script>
 
 <style scoped>
