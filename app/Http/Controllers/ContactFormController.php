@@ -10,7 +10,7 @@ class ContactFormController extends Controller
     public function store(ContactFormRequest $request)
     {
         $validated = $request->validated();
-        $apiKey = env('UNISENDER_API_KEY');
+        $apiKey = env('UNISENDER_API_KEY'); // Ключ 6i3p7...
 
         $senderEmail = 'filatowa.l2010@yandex.ru';
         $senderName = 'Елена Фионина';
@@ -18,13 +18,12 @@ class ContactFormController extends Controller
         $htmlOwner = view('emails.owner', ['data' => $validated])->render();
         $htmlUser = view('emails.user', ['data' => $validated])->render();
 
-        // 1. Отправка 
-        // ИЗМЕНЕННАЯ ССЫЛКА 
+        // Используем V5 API (стандартный адрес)
         $responseOwner = Http::withHeaders([
             'X-API-KEY' => $apiKey,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
-        ])->post('https://go.unisender.com/api/ru/transactional/v1/email/send.json', [
+        ])->post('https://api.unisender.com/ru/v5/transactional/email/send', [
             "message" => [
                 "recipients" => [["email" => $senderEmail]],
                 "subject" => 'Новое сообщение "devprofile"',
@@ -37,12 +36,11 @@ class ContactFormController extends Controller
         ]);
 
         // 2. Отправка КЛИЕНТУ
-        // ИЗМЕНЕННАЯ ССЫЛКА
         $responseClient = Http::withHeaders([
             'X-API-KEY' => $apiKey,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
-        ])->post('https://go.unisender.com/api/ru/transactional/v1/email/send.json', [
+        ])->post('https://api.unisender.com/ru/v5/transactional/email/send', [
             "message" => [
                 "recipients" => [["email" => $validated['email']]],
                 "subject" => 'Спасибо за обращение',
