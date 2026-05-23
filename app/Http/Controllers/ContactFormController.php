@@ -15,11 +15,11 @@ class ContactFormController extends Controller
         $senderEmail = 'filatowa.l2010@yandex.ru';
         $senderName = 'Елена Фионина';
 
-        //  HTML
+        // Подготовка HTML
         $htmlOwner = view('emails.owner', ['data' => $validated])->render();
         $htmlUser = view('emails.user', ['data' => $validated])->render();
 
-        // 1. Отправка мне
+        // 1. Отправка мне (По документации: метод sendEmail)
         $responseOwner = Http::asForm()->post('https://api.unisender.com/ru/api/sendEmail', [
             'api_key' => $apiKey,
             'email' => $senderEmail,
@@ -27,7 +27,8 @@ class ContactFormController extends Controller
             'sender_email' => $senderEmail,
             'subject' => 'Новое сообщение "devprofile"',
             'body' => $htmlOwner,
-            'list_id' => 1 // Используем ID списка, который был у вас на скриншоте
+            'list_id' => 1,
+            'format' => 'json' // Просим ответ в JSON
         ]);
 
         // 2. Отправка КЛИЕНТУ
@@ -38,10 +39,10 @@ class ContactFormController extends Controller
             'sender_email' => $senderEmail,
             'subject' => 'Спасибо за обращение',
             'body' => $htmlUser,
-            'list_id' => 1
+            'list_id' => 1,
+            'format' => 'json'
         ]);
 
-        // Возвращаем ответ для отладки
         return response()->json([
             'message' => 'success',
             'debug_owner' => $responseOwner->body(),
