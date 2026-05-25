@@ -19,6 +19,11 @@ const routes = [
         path: '/cases',
         name: 'cases',
         component: () => import('./components/navigation/Cases.vue')
+    },
+    {
+        path: '/contact',
+        name: 'contact',
+        component: () => import('./components/contact/ContactModal.vue')
     }
 ];
 
